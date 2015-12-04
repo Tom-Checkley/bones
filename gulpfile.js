@@ -15,19 +15,18 @@
 // ========================
 // Reset scripts
 // ========================
-gulp.task('resetScripts', function(cb){
-	del([
+gulp.task('resetScripts', function(){
+	return del([
 		'dev/js/app.js',
 		'dev/js/app.js.map',
 		'dev/js/app.min.js'
-	], cb);
+	]);
 });
 
 // ========================
 // Concat scripts
 // ========================
-gulp.task('concatScripts', /*['resetScripts'],*/ function() {
-	console.log('start concat');
+gulp.task('concatScripts', ['resetScripts'], function() {
 	return gulp.src([
 			// add jquery as first libary
 			'dev/libs/jquery.js',
