@@ -1,0 +1,81 @@
+// ============================================================================
+// GRID COLUMNS
+// ============================================================================
+
+
+[class*='grid__col--'] {
+	margin: em(8px) 0;
+	display: inline-block;
+	float: left;
+	min-height: 1px;
+	padding: 0 10px;
+}
+
+// Calculate grid columns
+
+// small grid columns
+@for $i from 1 through $grid-col-count {
+	$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+	$target: ($grid-col-width * $i);
+	// generate column modifier classes
+	.sm-grid__col--#{$i} {
+		width: percentage($target / $context);
+	}
+}
+// small offset grid columns
+@for $i from 1 through $grid-col-count {
+	$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+	$target: ($grid-col-width * $i);
+	// generate column modifier classes
+	.sm-offset__col--#{$i} {
+		margin-left: percentage($target / $context);
+	}
+}
+// medium grid columns
+@include mq(medium) {
+	@for $i from 1 through $grid-col-count {
+		$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+		$target: ($grid-col-width * $i);
+		// generate column modifier classes
+		.md-grid__col--#{$i} {
+			width: percentage($target / $context);
+		}
+	}
+	// medium offsets
+	@for $i from 1 through $grid-col-count {
+		$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+		$target: ($grid-col-width * $i);
+		// generate column modifier classes
+		.md-offset__col--#{$i} {
+			margin-left: percentage($target / $context);
+		}
+	}
+}
+// large grid columns
+@include mq(x-large) {
+	@for $i from 1 through $grid-col-count {
+		$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+		$target: ($grid-col-width * $i);
+		// generate column modifier classes
+		.lg-grid__col--#{$i} {
+			width: percentage($target / $context);
+		}
+	}
+	// large offsets
+	@for $i from 1 through $grid-col-count {
+		$context: g-context($grid-col-width, $grid-col-count, $grid-gutter-width) !global;
+		$target: ($grid-col-width * $i);
+		// generate column modifier classes
+		.lg-offset__col--#{$i} {
+			margin-left: percentage($target / $context);
+		}
+	}
+}
+
+
+
+.content {
+	background-color: #ccc;
+	padding: em(10px);
+	text-align: center;
+}

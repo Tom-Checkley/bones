@@ -68,4 +68,8 @@ gulp.task('compileSass', function(){
 		.pipe(gulp.dest('dev/css/'));
 });
 
-gulp.task('default', ['minifyScripts', 'compileSass']);
+gulp.task('watchFiles', function() {
+	gulp.watch('dev/**/*', ['compileSass', 'minifyScripts']);
+})
+
+gulp.task('default', ['minifyScripts', 'compileSass', 'watchFiles']);

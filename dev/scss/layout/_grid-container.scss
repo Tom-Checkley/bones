@@ -1,0 +1,28 @@
+// ============================================================================
+// GRID CONTAINER
+// ============================================================================
+
+.grid {
+	@extend %clearfix;
+	@extend .centered;
+	width: 90%;
+	// full width grid
+	&__full-width {
+		width: 100%;
+	}
+	// nested grid 100%
+	[class*='grid__col--'] > & {
+		width: 100%;
+	}
+	// set max-width 
+	@include mq(x-large) {
+		width: $grid-col-max-w;
+	}
+}
+
+.row {
+	@extend %clearfix;
+	// @extend .centered;
+	// margin-left: -$grid-gutter-width;
+	// margin-right: -$grid-gutter-width;
+}

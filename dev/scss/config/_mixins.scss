@@ -1,0 +1,26 @@
+// Media queries
+
+@mixin mq($break) {
+  @if $break == "small" {
+    @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+      @content;
+    }
+  }
+  @else if $break == "medium" {
+    @media (min-width: $breakpoint-md + 1) {
+      @content;
+    }
+  }
+  @else if $break == "large" {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }@else if $break == "x-large" {
+    @media (min-width: $breakpoint-x-lg) {
+      @content;
+    }
+  }
+   @else {
+   	@error "No value could be retrieved for `#{$break}`. Check variable file in scss/config"
+  }
+}

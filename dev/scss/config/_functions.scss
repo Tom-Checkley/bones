@@ -1,0 +1,17 @@
+// ============================================================================
+// PIXELS TO EM FUNCTION
+// ============================================================================
+
+@function em($target, $context: $base__font-size) {
+	@return ($target / $context) * 1em;
+}
+
+
+// ============================================================================
+// RESPONSIVE GRID LAYOUT
+// ============================================================================
+
+@function g-context($grid-col-width, $grid-col-count, $grid-gutter-width) {
+	$g-context: ($grid-col-width * $grid-col-count)/* + ($grid-gutter-width * ($grid-col-count - 1))*/;
+	@return $g-context;
+}
