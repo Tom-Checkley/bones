@@ -24,3 +24,18 @@
    	@error "No value could be retrieved for `#{$break}`. Check variable file in scss/config"
   }
 }
+
+
+// BEM Selectors
+
+@mixin e($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+@mixin m($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}

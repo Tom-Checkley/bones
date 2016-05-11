@@ -1,21 +1,22 @@
 /*jslint node: true */
 'use strict';
 
-var gulp 					= require('gulp'),
-		concat 				= require('gulp-concat'),
-		uglify				= require('gulp-uglify'),
-		rename				= require('gulp-rename'),
-		maps					= require('gulp-sourcemaps'),
-		autoprefixer 	= require('gulp-autoprefixer'),
-		sass 					= require('gulp-sass'),
-		plumber				= require('gulp-plumber'),
-		minifycss 		= require('gulp-minify-css'),
-		del 					= require('del'),
-		modernizr			= require('gulp-modernizr'),
-		jshint				= require('gulp-jshint'),
-		stylish 			= require('jshint-stylish'),
-		browserSync 	= require('browser-sync'),
-		reload 				= browserSync.reload;
+var gulp = require('gulp'),
+    useref = require('gulp-useref'),
+    uglify = require('gulp-uglify'),
+    gulpIf = require('gulp-if'),
+    sass = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    plumber = require('gulp-plumber'),
+    maps = require('gulp-sourcemaps'),
+    cssnano	= require('gulp-cssnano'),
+    rename = require('gulp-rename'),
+		del = require('del'),
+		modernizr	= require('gulp-modernizr'),
+		jshint = require('gulp-jshint'),
+		stylish = require('jshint-stylish'),
+		browserSync = require('browser-sync'),
+		reload = browserSync.reload;
 
 
 // ========================
@@ -36,22 +37,12 @@ gulp.task('lint', function() {
   	.pipe(jshint.reporter(stylish));
 });
 
-// ========================
-// Reset scripts
-// ========================
-gulp.task('resetScripts', function(){
-	return del([
-		'dist/',
-		'dev/js/temp/**',
-		'dev/js/app.min.js'
-	]);
-});
 
 
 // ========================
 // Add Modernizr
 // ========================
-gulp.task('modernizr', ['resetScripts'], function() {
+gulp.task('modernizr', function() {
   return gulp.src(['dev/**/*.js', 'dev/**/*.scss', '!dev/libs/**/*'])
     .pipe(modernizr({
     	'cache' : true,
