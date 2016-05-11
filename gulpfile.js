@@ -102,9 +102,6 @@ gulp.task('compileSass', function(){
 		.pipe(maps.init({loadMaps: true}))
 		.pipe(sass()).on('error', sass.logError)
 		.pipe(autoprefixer('last 2 versions', 'ie 8', 'ie 9'))
-		.pipe(gulp.dest('dev/css/'))
-		.pipe(rename('style.min.css'))
-		.pipe(minifycss())
 		.pipe(maps.write('./'))
 		.pipe(gulp.dest('dev/css/'))
 		.pipe(reload({stream:true}));
@@ -137,28 +134,29 @@ gulp.task('watchFiles', function() {
 // Build task
 // ==============================
 
-// clear old dist folder
-gulp.task('build-cleanfolder', function(cb){
-	del([
-		'dist/**'
-	], cb);
-});
-
 // create dist directory
 gulp.task('build-copy', ['build-cleanfolder'], function(){
-	return gulp.src('dev/**/*')
-	.pipe(gulp.dest('dist/'));
+  return gulp.src('dev/**/*')
+  .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('useref', ['build-copy'], function () {
+  return gulp.src('dev/*.html')
+      .pipe(useref())
+      .pipe(gulpIf('*.js', uglify({'mangle':true})))
+      .pipe(gulpIf('*.css', cssnano()))
+      .pipe(gulp.dest('dist'));
 });
 
 //remove unwanted files
-gulp.task('build-removefiles', ['build-copy'], function(cb){
-	del([
-			'dist/scss/',
-			'dist/css/!(*.min.css)',
-			'dist/js/!(*.min.js)'
-		], cb);
+gulp.task('build-removefiles', ['useref'], function(){
+  return del([
+      'dist/scss/',
+      'dist/css/!(*.min.css)',
+      'dist/js/!(*.min.js)'
+    ]);
 });
 
-gulp.task('build', ['build-removefiles']);
 
-gulp.task('default', ['lint', 'compileSass', 'minifyScripts', 'browser-sync', 'watchFiles']);
+gulp.task('default', ['html', 'compileSass', 'modernizr', 'browser-sync', 'watchFiles']);
+gulp.task('build', ['build-removefiles']);
